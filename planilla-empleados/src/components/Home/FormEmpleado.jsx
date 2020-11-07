@@ -4,8 +4,8 @@ class FormEmpleado extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        code:'150',
-        name:'Marcos',
+        code: null,
+        name:null,
         hours:0,
         ISSS:0,
         AFP:0,
@@ -136,7 +136,7 @@ e.target.reset();
             <div className="input-group-text bg-light">  
             <i className="material-icons">assignment_ind</i>
             </div>
-        <input type="text" className="form-control"  onChange={this.GuardarInputs} name="name"value={this.state.name} aria-describedby="emailHelp" placeholder="heres goes the website name"/>
+        <input type="text" className="form-control"  onChange={this.GuardarInputs} name="name"value={this.state.name} aria-describedby="emailHelp" placeholder="Marcos Ayala"/>
         </div>
         
         <h2>Horas Trabajadas</h2>
@@ -144,7 +144,7 @@ e.target.reset();
             <div className="input-group-text bg-light block">  
             <i className="material-icons">schedule</i>
             </div>
-            <input type="text" className="form-control" onChange={this.CalcularDatos} name="hours" value={this.state.hours} aria-describedby="emailHelp" placeholder="heres goes the website name"/>
+            <input type="text" className="form-control" onChange={this.CalcularDatos} name="hours" value={this.state.hours} aria-describedby="emailHelp" placeholder="horas"/>
         </div>
         
         <button className="btn btn-primary btn-block" ><p><i className="material-icons">add_circle_outline</i></p> GUARDAR </button>

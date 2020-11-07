@@ -1,5 +1,4 @@
-import React, { useContext,Component} from "react";
-import { UserContext } from "../providers/UserProvider";
+import React, { Component} from "react";
 import { auth } from "../firebase";
 import { Router, Link } from "@reach/router";
 import {firestore} from '../firebase';
@@ -15,11 +14,10 @@ class ProfilePage extends Component
     //para subscribirse.collection("empleados")
     this.ref = firestore.collection('empleados').orderBy("name", "desc");
     this.unsubscribe = null;
-    var photoURL='';
     this.state = {
      empleados: []
      };
-     
+     this.photoURL = localStorage.getItem('photoURL');
    /* database.collection('Clientes').onSnapshot((querySnapshot)=>
     {
         querySnapshot.forEach((doc)=>
@@ -33,14 +31,18 @@ class ProfilePage extends Component
    */
    
   }
+
   signOut = () => {
+    alert('Sesión cerrada correctamente!');
     auth.signOut();
     window.location = '/';
+    localStorage.clear();
+    
   };
 
   myFunction=()=> {
     var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
+    if (x.className.indexOf("w3-show") === -1) {
       x.className += " w3-show";
     } else {
       x.className = x.className.replace(" w3-show", "");
@@ -50,7 +52,6 @@ class ProfilePage extends Component
   onCollectionUpdate = (querySnapshot) => {
     const empleados = [];
     querySnapshot.forEach((doc) => {
-      const { title, description, author } = doc.data();
       empleados.push({...doc.data(),id:doc.id,isEditing:false});
     });
     this.setState({
@@ -92,7 +93,7 @@ this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
 // cuando se presiona el botón editar, se recibe de Users.js
 pressEditBtn = (id) => {
   let empleados = this.state.empleados;
-  let i=empleados.findIndex(x=>x.id==id)
+  let i=empleados.findIndex(x=>x.id===id)
   empleados[i].isEditing = true;
   this.setState({
       empleados
@@ -102,7 +103,7 @@ pressEditBtn = (id) => {
 //para cancelar edicion
 CancelEdit = (id) => {
   let empleados = this.state.empleados;
-  let i=empleados.findIndex(x=>x.id==id)
+  let i=empleados.findIndex(x=>x.id===id)
   empleados[i].isEditing = false;
   this.setState({
       empleados
@@ -117,7 +118,7 @@ const updateRef = firestore.collection('empleados').doc(id).update(newUser)
  
 
 }
-// (i) se recibe de Users.js
+// (i) se recibe de Users.js  
 pressDelete = (id) => {
   firestore.collection('empleados').doc(id).delete().then(() => {
   alert("Empleado Eliminado!");
@@ -127,10 +128,6 @@ pressDelete = (id) => {
 });
  
 }
-
-
-  
-  
 
 
 render() {
@@ -147,11 +144,12 @@ render() {
           <a onClick={() => { this.signOut() }} className="mt-2 w3-padding-large w3-hide-small w3-right">Cerrar sesión</a>
           <a className="w3-right mt-2"> <div
             style={{
-              background: `url(${this.photoURL || 'https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png'})  no-repeat center center`,
+              background: `url(${this.photoURL || 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png'})  no-repeat center center`,
               backgroundSize: "cover",
               height: "50px",
               width: "50px",
-              borderRadius: "20px"
+              backgroundColor: "white",
+              borderRadius: "30px"
             }}>
           </div>
           </a>

@@ -14,7 +14,7 @@ export const UserContext = createContext({ user: null });
 
 class UserProvider extends Component {
 
-  state = {user: null};
+  state = { user: null };
 
   /* 
   Esto activaba al triggered  cuando los usuarios iniciaban sesión, 
@@ -26,19 +26,28 @@ class UserProvider extends Component {
     console.log(" UserProvider componentDidMount : ");
     auth.onAuthStateChanged(async userAuth => {
       const user = await generateUserDocument(userAuth);
-      console.log(" Usuario triggered componentDidMount : " + user);   
-      this.setState({ user });      
-      console.log("++++++++++++++++++++++++++++++++++");    
+      console.log(" Usuario triggered componentDidMount : " + user);
+      console.log(user);
+      if (user) {
+        const { photoURL } = user;
+        console.log(photoURL);
+        if (photoURL) {
+          localStorage.setItem('photoURL', photoURL);
+        }
+      }
+      this.setState({ user });
+      console.log("++++++++++++++++++++++++++++++++++");
     });
   };
 
-  setUserContext = (usertmp) => {  
-    this.setState({ usertmp });    
+  setUserContext = (usertmp) => {
+    this.setState({ usertmp });
   };
 
   render() {
     const { user } = this.state;
     console.log(" render -> Usuario UserProvider : " + user);
+
     return (
       // Usa un Provider para pasar el user actual al árbol de abajo.
       // Cualquier componente puede leerlo, sin importar qué tan profundo se encuentre.

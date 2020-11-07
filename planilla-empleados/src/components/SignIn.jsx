@@ -15,6 +15,7 @@ const SignIn = () => {
     event.preventDefault(); 
 
     const user = auth.signInWithEmailAndPassword(email, password).then( result =>{
+      alert('Sesión iniciada correctamente!');
       window.location = '/inicio';
     })
     .catch(error => {
