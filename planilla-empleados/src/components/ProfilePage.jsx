@@ -74,20 +74,28 @@ this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
    /* let newUsers = this.state.users;
     newUsers.push(newUser);
    this.setState({newUsers});*/
-   firestore.collection('empleados').add(newUser).then(res=>
-    {
-
-      alert('Usuario Agregado');
-
-
-    })
-    .catch(err=>
+   let isValidCode  = true
+   this.state.empleados.forEach(el =>{
+     if(el.code == newUser.code) isValidCode = false
+   })
+   if(isValidCode){
+    firestore.collection('empleados').add(newUser).then(res=>
       {
-       alert('Ocurrio un error');
-       console.error(err);
-        
+
+        alert('Usuario Agregado');
+
+
       })
+      .catch(err=>
+        {
+        alert('Ocurrio un error');
+        console.error(err);
+          
+        })
    }
+  else{
+    alert("Codigo de empleado repetido")
+  }}
 
    
 // cuando se presiona el botón editar, se recibe de Users.js
@@ -125,10 +133,18 @@ pressDelete = (id) => {
 }).catch((error) => {
   alert("Ha ocurrido un error ");
   console.error(error);
-});
- 
+}); 
 }
 
+
+getCodigoEmpleado = () => {
+  let lastCode = 0
+  this.state.empleados.forEach(el => {
+    let cod = Number(el.code)
+    if( cod > lastCode ) lastCode = cod
+  })
+  return lastCode
+}
 
 render() {
     return (
@@ -170,7 +186,7 @@ render() {
           <Router>
             <Inicio exact path="/inicio" />
             <TablaEmpleados allUsers={this.state.empleados} pressDelete={this.pressDelete}  pressEditBtn={this.pressEditBtn} updateUser={this.updateUser} CancelEdit={this.CancelEdit} exact path="/planilla" />
-            <FormEmpleado addEmpleado={this.addEmpleado} exact path="/empleados" />
+            <FormEmpleado last={this.getCodigoEmpleado()} addEmpleado={this.addEmpleado} exact path="/empleados" />
           </Router>
         </div>
       </div>

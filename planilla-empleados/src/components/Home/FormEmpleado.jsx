@@ -4,7 +4,7 @@ class FormEmpleado extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        code: null,
+        code: this.props.last + 1,
         name:null,
         hours:0,
         ISSS:0,

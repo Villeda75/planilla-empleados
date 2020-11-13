@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import  ShowEmp from './ShowEmp'
 class TablaEmpleados extends Component{
 
     constructor(props) {
@@ -19,7 +19,7 @@ class TablaEmpleados extends Component{
       };
     }
     // llamar updateUser (App.js)
-  
+    
     CalcularDatos=(horas,_code,_name)=>
     {
   
@@ -159,7 +159,21 @@ class TablaEmpleados extends Component{
         });
 
         return(
-            
+          <>
+          <div className="offset-5">
+            <ShowEmp 
+              title = "Mostrar Empleador con Mayor Salario"
+              clase = "info"
+              data = {this.props.allUsers}
+              id = "mayor"
+            />
+            <ShowEmp 
+              title = "Mostrar Empleador con Menor Salario"
+              clase = "warning"
+              data = {this.props.allUsers}
+              id = "menor"
+            />
+          </div>
             <table className="table table-hover" style={{color:"black", fontFamily:'Cinzel',fontSize:"16px"}}>
                 <thead>
                     <tr>
@@ -179,7 +193,7 @@ class TablaEmpleados extends Component{
                     {usersList}
                 </tbody>
             </table>
-    
+          </>
         );
     }
 }
