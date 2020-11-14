@@ -28,8 +28,6 @@ class FormEmpleado extends Component {
     { 
       
        e.preventDefault();
-      
-alert('datos enviados');
 
 console.log(this.state);
 
@@ -127,7 +125,7 @@ e.target.reset();
           this.state.code === '' ||
           this.state.hours === '' ||
           !regexp.test(this.state.hours) ||
-          Number(this.state.hours) < 0
+          Number(this.state.hours) < 1
         ) res = true
         return res
       }

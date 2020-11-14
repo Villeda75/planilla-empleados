@@ -174,6 +174,7 @@ class TablaEmpleados extends Component{
               id = "menor"
             />
           </div>
+          
             <table className="table table-hover" style={{color:"black", fontFamily:'Cinzel',fontSize:"16px"}}>
                 <thead>
                     <tr>
