@@ -5,8 +5,8 @@ class FormEmpleado extends Component {
       super(props);
       this.state = {
         code: this.props.last + 1,
-        name:null,
-        hours:0,
+        name:"",
+        hours:"",
         ISSS:0,
         AFP:0,
         RENTA:0,
@@ -41,7 +41,6 @@ e.target.reset();
 
     CalcularDatos=(e)=>
     {
-  
    
    const {name,value}=e.target;
    this.setState({hours:value});
@@ -120,6 +119,18 @@ e.target.reset();
     }
   
     render() {
+      var isValid = () =>{
+        let regexp = /^[0-9]{1,3}$/
+        let res = false
+        if(
+          this.state.name === '' || 
+          this.state.code === '' ||
+          this.state.hours === '' ||
+          !regexp.test(this.state.hours) ||
+          Number(this.state.hours) < 0
+        ) res = true
+        return res
+      }
       return (
         <form className="card card-body" onSubmit={this.GuardarDatos}> 
         
@@ -147,7 +158,7 @@ e.target.reset();
             <input type="text" className="form-control" onChange={this.CalcularDatos} name="hours" value={this.state.hours} aria-describedby="emailHelp" placeholder="horas"/>
         </div>
         
-        <button className="btn btn-primary btn-block" ><p><i className="material-icons">add_circle_outline</i></p> GUARDAR </button>
+        <button className="btn btn-primary btn-block" disabled={isValid()} ><p><i className="material-icons">add_circle_outline</i></p> GUARDAR </button>
         
         
         </form>

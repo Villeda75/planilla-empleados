@@ -25,7 +25,6 @@ export default function ShowEmp(params){
   }
   return(
     <>
-    {console.log(getInfo())}
       <button 
         className={"btn btn-"+params.clase+" mx-3 my-3"}
         data-toggle="modal" 
@@ -44,19 +43,6 @@ export default function ShowEmp(params){
               </button>
             </div>
             <div className="modal-body">
-              {/* AFP: "16.77"
-​
-              ISSS: "12.80"
-              ​
-              LIQUIDO: "243.75"
-              ​
-              NETO: "189.81"
-              ​
-              RENTA: "24.38"
-              ​
-              code: 152
-              ​
-              hours: "25" */}
               <div className="container row">
                 <div className="col-9"><h4>Horas trabajadas:</h4></div>
                 <div className="col-3"><p className="text-right">{getInfo().hours}</p></div>
@@ -71,10 +57,6 @@ export default function ShowEmp(params){
                 <div className="col-9"><h4>Sueldo Neto:</h4></div>
                 <div className="col-3"><p className="text-right">$ {getInfo().NETO}</p></div>
               </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>

@@ -74,11 +74,11 @@ this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
    /* let newUsers = this.state.users;
     newUsers.push(newUser);
    this.setState({newUsers});*/
-   let isValidCode  = true
+   let isValid = true
    this.state.empleados.forEach(el =>{
-     if(el.code == newUser.code) isValidCode = false
+     if(el.code == newUser.code) isValid = false
    })
-   if(isValidCode){
+   if(isValid){
     firestore.collection('empleados').add(newUser).then(res=>
       {
 
@@ -173,7 +173,7 @@ render() {
         </div>
       </div>
 
-      <div id="navDemo" className="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style={{ marginTop: + '46px' }}>
+      <div id="navDemo" className="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style={{ marginTop: '46px' }}>
         <a href="#tour" className="w3-bar-item w3-button w3-padding-large" onClick={() => {this. myFunction() }}><Link to="/inicio">Inicio</Link></a>
         <a href="#band" className="w3-bar-item w3-button w3-padding-large" onClick={() => { this.myFunction() }}><Link to="/empleados">Empleados</Link></a>
         <a href="#tour" className="w3-bar-item w3-button w3-padding-large" onClick={() => { this.myFunction() }}><Link to="/planilla">Planilla</Link></a>
@@ -182,7 +182,7 @@ render() {
 
       <br />
       <div className="container">
-        <div style={{ marginTop: "8%" }}>
+        <div className="mt-5 pt-5">
           <Router>
             <Inicio exact path="/inicio" />
             <TablaEmpleados allUsers={this.state.empleados} pressDelete={this.pressDelete}  pressEditBtn={this.pressEditBtn} updateUser={this.updateUser} CancelEdit={this.CancelEdit} exact path="/planilla" />
