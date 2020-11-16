@@ -142,7 +142,7 @@ class TablaEmpleados extends Component{
 
             ) : (
 
-                <tr className="table-primary" key={index}>
+                <tr className="table-primary" style={{ color: "black" }} key={index}>
                     <td>{user.code}</td>
                     <td>{user.name}</td>
                     <td>{user.hours}</td>
@@ -175,7 +175,7 @@ class TablaEmpleados extends Component{
             />
           </div>
           
-            <table className="table table-hover" style={{color:"black", fontFamily:'Cinzel',fontSize:"16px"}}>
+            <table className="table table-hover">
                 <thead>
                     <tr>
                     <th>Codigo</th>

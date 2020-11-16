@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "@reach/router";
 import { signInWithGoogle } from "../firebase";
 import { auth } from "../firebase";
+import { showSuccessAlert, showErrorAlert } from "./ServiceAlertas";
 
 const SignIn = () => {
 
@@ -15,8 +16,13 @@ const SignIn = () => {
     event.preventDefault(); 
 
     const user = auth.signInWithEmailAndPassword(email, password).then( result =>{
-      alert('Sesión iniciada correctamente!');
-      window.location = '/inicio';
+      //alert('Sesión iniciada correctamente!');
+      showSuccessAlert('Sesión iniciada correctamente!');
+
+      //Tiempo de espera para mostrar el alert y después redirigir a inicio
+      //setTimeout(() => { window.location.href = 'https://login-iwfashion.web.app/'; }, 1700);
+      setTimeout(() => {  window.location = '/inicio'; }, 1700);
+     
     })
     .catch(error => {
       setError("Error, por favor revisar credenciales.");

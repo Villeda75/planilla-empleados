@@ -6,7 +6,7 @@ import {firestore} from '../firebase';
 import TablaEmpleados from './Home/TablaEmpleados';
 import FormEmpleado from './Home/FormEmpleado';
 import Inicio from './Home/Inicio';
-
+import { showSuccessAlert, showErrorAlert } from "./ServiceAlertas";
 class ProfilePage extends Component
 {
   constructor(props) {
@@ -33,9 +33,11 @@ class ProfilePage extends Component
   }
 
   signOut = () => {
-    alert('Sesión cerrada correctamente!');
+    
+    showSuccessAlert('Sesión cerrada correctamente!');
     auth.signOut();
-    window.location = '/';
+    setTimeout(() => {  window.location = '/'; }, 1700);
+    //window.location = '/';
     localStorage.clear();
     
   };
@@ -82,19 +84,21 @@ this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
     firestore.collection('empleados').add(newUser).then(res=>
       {
 
-        alert('Usuario Agregado');
-
+        //alert('Usuario Agregado');
+        showSuccessAlert('Empleado agregado');
 
       })
       .catch(err=>
         {
-        alert('Ocurrio un error');
+        //alert('Ocurrio un error');
+        showErrorAlert('Ha ocurrido un error');
         console.error(err);
           
         })
    }
   else{
-    alert("Codigo de empleado repetido")
+    //alert("Codigo de empleado repetido")
+    showErrorAlert('Ha ocurrido un error');
   }}
 
    
@@ -121,17 +125,17 @@ CancelEdit = (id) => {
 // (i, nombre, edad) se recibe de Users.js
 updateUser = (id,newUser) => {
 const updateRef = firestore.collection('empleados').doc(id).update(newUser)
-.then(()=>{alert('Empleado modificado!')})
-.catch(()=>{alert('Ha ocurrido un error!')});
+.then(()=>{showSuccessAlert('Empleado modificado!')})
+.catch(()=>{showErrorAlert('Ha ocurrido un error!')});
  
 
 }
 // (i) se recibe de Users.js  
 pressDelete = (id) => {
   firestore.collection('empleados').doc(id).delete().then(() => {
-  alert("Empleado Eliminado!");
+  showSuccessAlert("Empleado Eliminado!");
 }).catch((error) => {
-  alert("Ha ocurrido un error ");
+  showErrorAlert("Ha ocurrido un error ");
   console.error(error);
 }); 
 }
